@@ -64,6 +64,42 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		   <!-- Jakarta EE API -->
+    <dependency>
+        <groupId>jakarta.platform</groupId>
+        <artifactId>jakarta.jakartaee-api</artifactId>
+        <version>9.1.0</version>
+        <scope>provided</scope>
+    </dependency>
+
+	   <!-- JWT Library -->
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>0.9.1</version>
+    </dependency>
+
+    <!-- Hibernate Validator -->
+    <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>6.1.5.Final</version>
+    </dependency>
+
+    <!-- JSON Binding API -->
+    <dependency>
+        <groupId>jakarta.json.bind</groupId>
+        <artifactId>jakarta.json.bind-api</artifactId>
+        <version>2.0.0</version>
+    </dependency>
+
+    <!-- JSON Binding Implementation -->
+    <dependency>
+        <groupId>org.eclipse</groupId>
+        <artifactId>yasson</artifactId>
+        <version>2.0.2</version>
+    </dependency>
+
 	</dependencies>
 
 	<build>

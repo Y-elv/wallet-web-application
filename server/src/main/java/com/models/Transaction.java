@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.enums.TransactionType;
 
 
-@Document(collection = "transactiona")
+@Document(collection = "transactions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
