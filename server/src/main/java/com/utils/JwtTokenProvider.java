@@ -39,6 +39,7 @@ public class JwtTokenProvider {
             Map<String, Object> claims = new HashMap<>();
             claims.put("email", user.getEmail());
             claims.put("username", user.getUsername());
+            claims.put("id", user.getId());
 
             Date now = new Date();
             Date validity = new Date(now.getTime() + validityInMilliseconds);
