@@ -1,6 +1,9 @@
 package com.controllers;
 
+import com.dto.LoginDto;
+import com.dto.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +21,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-  
-    @PostMapping("/register")
+    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<User>> registerUser(@Valid @RequestBody UserDto userDto) {
-        User user = userService.createUser(userDto);
-        ApiResponse<User> response = new ApiResponse<>(true, "User registered successfully", user);
-        return ResponseEntity.ok(response);
+        return userService.createUser(userDto);
     }
 
-    
-    
-
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResponse<LoginResponse>> loginUser(@Valid @RequestBody LoginDto loginDto) {
+        return userService.loginUser(loginDto);
+    }
 }

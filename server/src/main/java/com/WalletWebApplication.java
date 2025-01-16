@@ -1,4 +1,4 @@
-package com.Wallet_web_application.Wallet_Web_Application;
+package com;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
