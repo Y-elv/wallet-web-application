@@ -24,11 +24,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/v1/accounts/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/api/v1/users/register", "/api/v1/users/login")
+                        .ignoringRequestMatchers("/api/v1/users/register", "/api/v1/users/login", "/api/v1/accounts/**")
                 );
         return http.build();
     }
