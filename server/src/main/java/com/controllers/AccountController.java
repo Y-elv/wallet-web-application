@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
 public class AccountController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     @Autowired
     private AccountService accountService;
@@ -30,7 +34,12 @@ public class AccountController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<Account>> createAccount(@Valid @RequestBody Account account) {
-        return accountService.createAccount(account);
+        try {
+            return accountService.createAccount(account);
+        } catch (Exception e) {
+            logger.error("Error creating account", e);
+            return ResponseEntity.status(500).body(new ApiResponse<>(false, "Internal Server Error", null));
+        }
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
