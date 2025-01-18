@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -27,36 +28,50 @@ const Register = () => {
         <Logo>Wallet</Logo>
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
 
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-      
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-    
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-       
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+
           <button type="submit">Register</button>
         </form>
+        <LoginLink
+          style={{
+            
+            display: "flex",
+            fontSize: "1rem",
+            marginTop: "1rem",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "4rem",
+            width : "100%",
+            padding: "0",
+          }}
+        >
+          Have an account? <Link to="/login">Login</Link>
+        </LoginLink>
       </div>
     </Wrapper>
   );
@@ -64,7 +79,7 @@ const Register = () => {
 
 export default Register;
 
-//// styles
+// styles
 const Wrapper = styled.section`
   display: flex;
   justify-content: center;
@@ -75,6 +90,7 @@ const Wrapper = styled.section`
   div {
     background: rgba(255, 255, 255, 0.9); /* White background for the form */
     padding: 5rem;
+    width: 30%;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     color: #333; /* Dark text color inside the form */
@@ -137,4 +153,15 @@ const Logo = styled.h1`
   letter-spacing: 0.1em;
 `;
 
+const LoginLink = styled.div`
+ 
+  a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: bold;
+  }
 
+  a:hover {
+    text-decoration: underline;
+  }
+`;
