@@ -109,4 +109,10 @@ public class UserService implements UserDetailsService {
                 new UsernameNotFoundException("User not found with email: " + email));
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
+
+    // This is a placeholder method. Implement the actual logic to fetch user name.
+    public String getUserNameById(String userId) {
+    User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+    return user.getUsername();
+    }
 }

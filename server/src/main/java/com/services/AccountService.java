@@ -66,4 +66,10 @@ public class AccountService {
             return ResponseEntity.status(404).body(response);
         }
     }
+
+    // This is a placeholder method. Implement the actual logic to fetch account name.
+    public String getAccountNameById(String accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new RuntimeException("Account not found"));
+        return account.getAccountName();
+    }
 }

@@ -18,4 +18,6 @@ public interface TransactionRepository extends MongoRepository<Transaction, Stri
             "{ '$group': { '_id': null, 'totalSpent': { '$sum': '$amount' } } }"
     })
     double sumAmountByUserId(String userId);
+
+    List<Transaction> findByUserIdAndDateBetween(String userId, Date startDate, Date endDate);
 }

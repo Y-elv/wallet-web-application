@@ -4,6 +4,7 @@ import com.models.Budget;
 import com.models.User;
 import com.repositories.UserRepository;
 import com.repositories.BudgetRepository;
+import com.utils.PdfReportUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,6 +17,7 @@ import com.repositories.TransactionRepository;
 import com.repositories.AccountRepository;
 import com.enums.TransactionType;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Date;
 import java.util.Map;
@@ -127,7 +129,6 @@ public class TransactionService {
         mailSender.send(message);
     }
 
-
     public Map<String, Double> getTransactionSummary(String userId) {
         List<Transaction> transactions = transactionRepository.findByUserId(userId);
 
@@ -139,5 +140,10 @@ public class TransactionService {
                 ));
 
         return summary;
+    }
+
+    public ByteArrayInputStream generateTransactionsReport(String userId, Date startDate, Date endDate) {
+        List<Transaction> transactions = transactionRepository.findByUserIdAndDateBetween(userId, startDate, endDate);
+        return PdfReportUtil.generateTransactionsReport(transactions);
     }
 }
