@@ -10,6 +10,7 @@ import com.services.TransactionService;
 
 import java.util.List;
 import java.util.Date;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/transactions")
@@ -39,5 +40,11 @@ public class TransactionController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
         return transactionService.getTransactionsByAccountIdAndDateRange(accountId, startDate, endDate);
+    }
+
+    @GetMapping("/summary/{userId}")
+    public ResponseEntity<Map<String, Double>> getTransactionSummary(@PathVariable String userId) {
+        Map<String, Double> summary = transactionService.getTransactionSummary(userId);
+        return ResponseEntity.ok(summary);
     }
 }

@@ -18,7 +18,9 @@ import com.enums.TransactionType;
 
 import java.util.List;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -123,5 +125,19 @@ public class TransactionService {
         System.out.println("Subject: " + message.getSubject());
         System.out.println("Body: " + message.getText());
         mailSender.send(message);
+    }
+
+
+    public Map<String, Double> getTransactionSummary(String userId) {
+        List<Transaction> transactions = transactionRepository.findByUserId(userId);
+
+        // Summarize transactions by type
+        Map<String, Double> summary = transactions.stream()
+                .collect(Collectors.groupingBy(
+                        transaction -> transaction.getType().toString(),
+                        Collectors.summingDouble(Transaction::getAmount)
+                ));
+
+        return summary;
     }
 }
