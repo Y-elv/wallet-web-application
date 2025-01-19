@@ -29,12 +29,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/api/v1/users/register", "/api/v1/users/login", "/api/v1/accounts/**")
+                        .ignoringRequestMatchers("/api/v1/users/register", "/api/v1/users/login", "/api/v1/accounts/**", "/api/v1/transactions/**", "/api/v1/categories/**", "/api/v1/subcategories/**")
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/v1/users/register", "/api/v1/users/login").permitAll()
-                        .requestMatchers("/api/v1/accounts/**").authenticated()
+//                        .requestMatchers("/api/v1/accounts/**").authenticated()
                         .anyRequest().permitAll()
                 );
         return http.build();

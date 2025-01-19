@@ -22,9 +22,9 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<List<Account>>> getAllAccounts() {
-        return accountService.getAllAccounts();
+    @GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResponse<List<Account>>> getAllAccounts(@PathVariable String userId) {
+        return accountService.getAllAccounts(userId);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -16,8 +16,8 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public ResponseEntity<ApiResponse<List<Account>>> getAllAccounts() {
-        List<Account> accounts = accountRepository.findAll();
+    public ResponseEntity<ApiResponse<List<Account>>> getAllAccounts(String userId) {
+        List<Account> accounts = accountRepository.findByUserId(userId);
         ApiResponse<List<Account>> response = new ApiResponse<>(true, "Accounts retrieved successfully", accounts);
         return ResponseEntity.ok(response);
     }
