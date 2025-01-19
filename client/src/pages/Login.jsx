@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Toast } from "@/components/ui/Toast";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const Login = () => {
-  const [toaster, setToaster] = useState(Toast);
+  
+  const toast = useToast(); 
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,9 +18,12 @@ const Login = () => {
     setLoading(true);
 
     if (!email || !password) {
-      toaster.create({
+      toast({
         title: "Please fill all fields!",
-        type: "warning",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
       });
       setLoading(false);
       return;
@@ -39,9 +43,13 @@ const Login = () => {
 
       console.log("Data received from login endpoint:", data);
 
-      toaster.create({
+      toast({
         title: "Login successful!",
-        type: "success",
+        description: "You have successfully logged in.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
@@ -49,9 +57,13 @@ const Login = () => {
       setIsLoggedIn(true);
       navigate("/dashboard");
     } catch (error) {
-      toaster.create({
-        title: "Error occurred during login!",
-        type: "error",
+      toast({
+        title: "Invalid Credentials!",
+        description: "Incorrect Email or password.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
       });
       setLoading(false);
     }

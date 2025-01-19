@@ -3,8 +3,6 @@
 import Sidebar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
 import React, { useState } from "react";
-import { Toaster } from "@/components/ui/toaster"; // ShadCN Toaster
-
 
 function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -15,7 +13,6 @@ function Layout({ children }) {
 
   return (
     <div className="flex h-screen bg-background">
-      <Toaster />
       <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <div
         className={`flex-1 transition-all duration-300 mt-16`}
