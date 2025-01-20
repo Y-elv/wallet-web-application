@@ -40,4 +40,19 @@ public class SubCategoryService {
         }
     }
 
+    public ResponseEntity<ApiResponse<List<String>>> getAllSubCategories() {
+        List<Category> categories = categoryRepository.findAll();
+
+        // Collect all subcategories from all categories
+        List<String> allSubCategories = categories.stream()
+                .filter(category -> category.getSubCategories() != null)
+                .flatMap(category -> category.getSubCategories().stream())
+                .distinct() // Optional: To avoid duplicate subcategories
+                .toList();
+
+        ApiResponse<List<String>> response = new ApiResponse<>(true, "Subcategories retrieved successfully", allSubCategories);
+        return ResponseEntity.ok(response);
+    }
+
+
 }

@@ -22,5 +22,11 @@ public class SubCategoryController {
         return subCategoryService.addSubCategory(categoryId, name);
     }
 
+    @GetMapping("/all-subcategories")
+    public ResponseEntity<ApiResponse<List<String>>> getAllSubCategories() {
+        return subCategoryService.getAllSubCategories();
+    }
+
+
 
 }
