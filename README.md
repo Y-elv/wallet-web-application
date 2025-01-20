@@ -6,7 +6,7 @@ The Wallet Web Application helps users track their income and expenses across va
 ## Features
 - Track in and out transactions from multiple accounts (bank, mobile money, cash, etc.).
 - Generate financial reports for specified time intervals.
-- Set a budget and receive notifications when it is exceeded.
+- Set a budget and receive notifications with Email And Toast when it is exceeded.
 - Add categories and subcategories for expenses.
 - Link expenses to relevant categories or subcategories.
 - Visualize transaction summaries with charts and graphs.

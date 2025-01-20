@@ -101,12 +101,14 @@ public class TransactionService {
         // Calculate the total spent across all accounts
         double totalSpent = transactionRepository.sumAmountByUserId(userId);
 
-        if (totalSpent > budget.getAmount()) {
-            sendBudgetExceedEmail(userId, budget, totalSpent);
+        double notExceed = budget.getNotExceed();
+
+        if (totalSpent > notExceed) {
+            sendBudgetExceedEmail(userId,notExceed , totalSpent);
         }
     }
 
-    private void sendBudgetExceedEmail(String userId, Budget budget, double totalSpent) {
+    private void sendBudgetExceedEmail(String userId,double notExceed, double totalSpent) {
         // Fetch the user details from the UserRepository
         Optional<User> userOptional = userRepository.findById(userId);
         if (!userOptional.isPresent()) {
@@ -122,7 +124,7 @@ public class TransactionService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userEmail);
         message.setSubject("Budget Exceeded Notification");
-        message.setText("Dear " + username + ",\n\nYour total spending has exceeded your budget of " + budget.getAmount() + ". Total spent: " + totalSpent + ".");
+        message.setText("Dear " + username + ",\n\nYour total spending has exceeded your budget of " + notExceed+ ". Total spent: " + totalSpent + ".");
         System.out.println("Sending email to: " + userEmail);
         System.out.println("Subject: " + message.getSubject());
         System.out.println("Body: " + message.getText());

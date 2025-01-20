@@ -52,10 +52,19 @@ public class Budget {
         this.id = id;
     }
 
+    public double getNotExceed() {
+        return notExceed;
+    }
+
+    public void setNotExceed(double notExceed) {
+        this.notExceed = notExceed;
+    }
+
     @Id
     private String id;
     private String userId;
     private double amount;
+    private double notExceed;
     private Date startDate;
     private Date endDate;
 }
