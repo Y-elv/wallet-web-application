@@ -100,12 +100,10 @@ const TopBar = ({ isOpen }) => {
       <div className="flex items-center">
         <div className="ml-4">
           <h2 className="text-lg font-semibold text-foreground">
-            {user?.username
-              ? `Welcome, ${user.username}! 👋🏾`
-              : "Hello Guest 👋🏾"}
+            {user?.username ? `¡Hola, ${user.username}! 👋🏾` : "Hello Guest 👋🏾"}
           </h2>
           <p className="text-sm text-muted-foreground">
-            Your finances, simplified and under control.
+            Take control of your financial future.
           </p>
         </div>
       </div>
