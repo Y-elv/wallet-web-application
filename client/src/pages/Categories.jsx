@@ -78,7 +78,7 @@ const Categories = () => {
     try {
       const payload = { categoryId, name: subCategoryName };
       const response = await axios.post(
-        "http://localhost:8081/api/v1/subcategories/add",
+        "https://wallet-web-application-bxne.onrender.com/api/v1/subcategories/add",
         payload
       );
       if (response.data.success) {

@@ -101,7 +101,7 @@ const Overview = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8081/api/v1/transactions/report?userId=${userId}&startDate=${start}&endDate=${end}`
+        `https://wallet-web-application-bxne.onrender.com/api/v1/transactions/report?userId=${userId}&startDate=${start}&endDate=${end}`
       );
       const blob = await response.blob();
       saveAs(blob, `report_${start}_to_${end}.pdf`);
