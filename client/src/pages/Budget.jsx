@@ -9,23 +9,42 @@ const Budget = () => {
   const [amount, setAmount] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const toast = useToast();
+  const [budget, setBudget] = useState(null); 
   const [userId, setUserId] = useState(null);
+  const toast = useToast();
 
-  // Fetching userId from localStorage on mount
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser && storedUser.data) {
-      setUserId(storedUser.data.id);
+    const storedUser = JSON.parse(localStorage.getItem("userInfo"));
+    if (storedUser && storedUser.data.user) {
+      setUserId(storedUser.data.user.id);
     }
   }, []);
 
-  // Log userId when it changes
   useEffect(() => {
     if (userId) {
-      console.log("userId", userId); // Log userId after it is updated
+      fetchBudget();
     }
   }, [userId]);
+
+  const fetchBudget = async () => {
+    try {
+      const response = await axios.get(
+        `https://wallet-web-application-bxne.onrender.com/api/v1/budgets/${userId}`
+      );
+      if (response.data.success) {
+        setBudget(response.data.data); // Update budget with fetched data
+        console.log("Fetched budget:", response.data.data);
+      }
+    } catch (error) {
+      toast({
+        title: "Error fetching budget",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
 
   const handleCreateBudget = async () => {
     if (!amount || !startDate || !endDate || !userId) {
@@ -39,14 +58,12 @@ const Budget = () => {
     }
 
     try {
-      // Log payload before making API call
       const payload = {
         userId,
         amount: parseFloat(amount),
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
       };
-      console.log("payload", payload); // Log the payload to ensure it's correct
 
       const response = await axios.post(
         "https://wallet-web-application-bxne.onrender.com/api/v1/budgets",
@@ -60,14 +77,14 @@ const Budget = () => {
           duration: 5000,
           isClosable: true,
         });
-        // Reset fields
         setAmount("");
         setStartDate(new Date());
         setEndDate(new Date());
+        fetchBudget(); // Refresh budget details
       }
     } catch (error) {
       toast({
-        title: "Error creating budget",
+        title: `Error: ${error.response?.data?.message || error.message}`,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -93,8 +110,6 @@ const Budget = () => {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
-
-        {/* Start Date Picker */}
         <Label>
           Start Date:
           <DatePicker
@@ -104,8 +119,6 @@ const Budget = () => {
             className="datepicker"
           />
         </Label>
-
-        {/* End Date Picker */}
         <Label>
           End Date:
           <DatePicker
@@ -115,14 +128,37 @@ const Budget = () => {
             className="datepicker"
           />
         </Label>
-
         <button type="submit">Create Budget</button>
       </AddBudgetForm>
+
+      <BudgetDetails>
+        <h3>Your Budget</h3>
+
+        {budget ? (
+          <BudgetCard key={budget.id}>
+            <p>
+              <strong>Amount:</strong> ${budget.amount.toFixed(2)}
+            </p>
+            <p>
+              <strong>Start Date:</strong>{" "}
+              {new Date(budget.startDate).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>End Date:</strong>{" "}
+              {new Date(budget.endDate).toLocaleDateString()}
+            </p>
+          </BudgetCard>
+        ) : (
+          <p>No budget available. Create one to get started!</p>
+        )}
+      </BudgetDetails>
     </Wrapper>
   );
 };
 
 export default Budget;
+
+
 
 // Styled Components
 const Wrapper = styled.div`
@@ -135,12 +171,6 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  margin-bottom: 2rem;
-
   h1 {
     font-size: 2.5rem;
     color: #1a73e8;
@@ -159,18 +189,7 @@ const AddBudgetForm = styled.form`
   width: 100%;
   max-width: 400px;
 
-  h2 {
-    margin-bottom: 1rem;
-  }
-
-  input {
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-  }
-
+  input,
   .datepicker {
     padding: 0.5rem;
     margin: 0.5rem 0;
@@ -186,23 +205,49 @@ const AddBudgetForm = styled.form`
     background: #1a73e8;
     color: #fff;
     cursor: pointer;
-    transition: background 0.3s ease;
-
     &:hover {
       background: #155bb5;
     }
   }
 `;
 
-// Label Styled Component
 const Label = styled.label`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 0.5rem 0;
   font-weight: 600;
+`;
 
-  .datepicker {
-    margin-top: 0.5rem;
+const BudgetDetails = styled.div`
+  width: 100%;
+  max-width: 600px;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #1a73e8;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #333;
+  }
+`;
+
+const BudgetCard = styled.div`
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background: #f9f9f9;
+
+  p {
+    margin: 0.25rem 0;
   }
 `;

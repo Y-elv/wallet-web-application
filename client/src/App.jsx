@@ -8,6 +8,7 @@ import Overview from "./pages/Overview";
 import Accounts from "./pages/Accounts";
 import Categories from "./pages/Categories";
 import Budget from "./pages/Budget";
+import Transactions from "./pages/Transactions";
 
 function App() {
 
@@ -45,6 +46,14 @@ function App() {
           element={
             <Layout>
               <Budget />
+            </Layout>
+          }
+        />
+        <Route
+          path="/transactions"
+          element={
+            <Layout>
+              <Transactions />
             </Layout>
           }
         />
