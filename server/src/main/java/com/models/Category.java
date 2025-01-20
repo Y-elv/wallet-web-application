@@ -13,19 +13,12 @@ import java.util.List;
 @Setter
 @Document(collection = "categories")
 public class Category {
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<SubCategory> getSubCategories() {
+    public List<String> getSubCategories() {
         return subCategories;
     }
 
-    public void setSubCategories(List<SubCategory> subCategories) {
+    public void setSubCategories(List<String> subCategories) {
         this.subCategories = subCategories;
     }
 
@@ -37,8 +30,16 @@ public class Category {
         this.name = name;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Id
     private String id;
     private String name;
-    private List<SubCategory> subCategories; 
+    private List<String> subCategories;
 }
