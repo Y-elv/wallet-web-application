@@ -55,7 +55,7 @@ const Login = () => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       setIsLoggedIn(true);
-      navigate("/dashboard");
+      navigate("/overview");
     } catch (error) {
       toast({
         title: "Invalid Credentials!",

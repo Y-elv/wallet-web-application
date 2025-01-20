@@ -9,7 +9,12 @@ import {
 
 // Define the menu items without TypeScript interfaces
 export const menuItems = [
-  { icon: LayoutDashboard, text: "Overview", category: "Menu", path: "/" },
+  {
+    icon: LayoutDashboard,
+    text: "Overview",
+    category: "Menu",
+    path: "/overview",
+  },
   { icon: Wallet, text: "Accounts", category: "Menu", path: "/accounts" },
   { icon: PiggyBank, text: "Budget", category: "Menu", path: "/budget" },
   { icon: Briefcase, text: "Manage", category: "Menu", path: "/manage" },

@@ -7,6 +7,7 @@ import { Dropdown, Menu } from "antd";
 
 const TopBar = ({ isOpen }) => {
   const [user, setUser] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     // Retrieve the userInfo from localStorage
@@ -25,6 +26,22 @@ const TopBar = ({ isOpen }) => {
         console.error("Error parsing user info:", error);
       }
     }
+
+    // Add scroll event listener
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup scroll event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   // Function to generate a background color based on the first letter of the username
@@ -77,7 +94,8 @@ const TopBar = ({ isOpen }) => {
     <div
       className={`fixed top-0 bg-background border border-b-muted-foreground shadow-sm p-4 flex justify-between items-center transition-all duration-300 ${
         isOpen ? "left-64" : "left-20"
-      } right-0`}
+      } right-0 ${isScrolled ? "bg-opacity-100 bg-white" : "bg-opacity-75"}`} // Change background based on scroll position
+      style={{ backgroundColor: isScrolled ? "#ffffff" : "transparent" }}
     >
       <div className="flex items-center">
         <div className="ml-4">
