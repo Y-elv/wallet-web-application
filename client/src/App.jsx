@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Layout from "./components/Dashboard/Layout";
 import Overview from "./pages/Overview";
 import Accounts from "./pages/Accounts";
+import Categories from "./pages/Categories";
 
 function App() {
 
@@ -27,6 +28,14 @@ function App() {
           element={
             <Layout>
               <Accounts />
+            </Layout>
+          }
+        />
+        <Route
+          path="/categories"
+          element={
+            <Layout>
+              <Categories />
             </Layout>
           }
         />

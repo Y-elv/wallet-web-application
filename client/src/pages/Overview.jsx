@@ -22,6 +22,7 @@ const Overview = () => {
         const parsedUserInfo = JSON.parse(userInfo);
         if (parsedUserInfo.data && parsedUserInfo.data.user) {
           setUserId(parsedUserInfo.data.user.id);
+          console.log("User ID:", parsedUserInfo.data.user.id);
           fetchTransactionSummary(parsedUserInfo.data.user.id);
         }
       } catch (error) {
@@ -33,7 +34,7 @@ const Overview = () => {
   const fetchTransactionSummary = async (userId) => {
     try {
       const response = await fetch(
-        `http://localhost:8081/api/v1/transactions/summary/${userId}`
+        `https://wallet-web-application-bxne.onrender.com/api/v1/transactions/summary/${userId}`
       );
       const data = await response.json();
       setSummary(data);

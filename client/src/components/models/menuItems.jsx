@@ -17,7 +17,7 @@ export const menuItems = [
   },
   { icon: Wallet, text: "Accounts", category: "Menu", path: "/accounts" },
   { icon: PiggyBank, text: "Budget", category: "Menu", path: "/budget" },
-  { icon: Briefcase, text: "Manage", category: "Menu", path: "/manage" },
+  { icon: Briefcase, text: "Categories", category: "Menu", path: "/categories" },
   {
     icon: Receipt,
     text: "Transactions",
